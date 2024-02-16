@@ -4,7 +4,7 @@ pipeline{
         stage ('Clean Up'){
           steps{
               sh "echo 'Cleaning Up'"
-              sh "docker rm  -f $(docker ps -aq) || true" 
+              sh 'docker rm -f ${docker ps -aq} || true'
               sh "docker create network || true"
           }
           }
