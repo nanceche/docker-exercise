@@ -1,0 +1,23 @@
+pipeline{
+    agent any
+    stages{
+        stage ('Clean Up'){
+          steps{
+              sh "echo 'Cleaning Up'"
+              sh "docker rm  -f $(docker ps -aq) || true" 
+              sh "docker create network || true"
+          }
+          }
+        stage ('Build Flask App'){
+          steps {
+              sh "docker build -t flask-app ."
+          }
+          stage ('Run Flask App'){
+           steps {
+               sh "docker run --name flask app ."
+               sh "docker run --name nginx -f Dockerfile.nginx"
+           }
+          }
+        }  
+    }
+}
