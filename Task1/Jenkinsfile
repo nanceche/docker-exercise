@@ -5,7 +5,7 @@ pipeline{
           steps{
               sh "echo 'Cleaning Up'"
               sh 'docker rm -f $(docker ps -aq) || true'
-              sh "docker create network flasknetwork || true"
+              sh "docker network create flasknetwork || true"
           }
           }
         stage('Build Flask App'){
